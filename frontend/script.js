@@ -208,7 +208,7 @@ async function analyzeImage() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:8000/analyze",
+            "https://e-waste-ai.onrender.com/analyze",
             {
                 method: "POST",
                 body: formData
