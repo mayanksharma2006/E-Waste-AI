@@ -1,318 +1,477 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8" />
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-    <title>E-Waste AI Analyzer</title>
+  <title>E-Waste AI Analyzer</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="./eWasteAI.css"
+  />
 </head>
 
 <body>
 
-<div class="container">
+  <div class="ewaste-ai">
 
-    <header>
-        <h1>♻️ E-Waste AI</h1>
+    <!-- Header -->
+
+    <header class="ai-header">
+
+      <div class="ai-header-icon">
+        ♻️
+      </div>
+
+      <div>
+        <h1>
+          E-Waste AI
+        </h1>
 
         <p>
-            Smart PCB & Electronic Waste Analyzer
+          Smart material analyzer
         </p>
+      </div>
+
     </header>
 
 
+    <!-- Analyzer -->
+
     <main>
 
-        <section class="upload-card">
+      <section class="ai-card">
 
-            <h2>Analyze Your Scrap</h2>
+        <div class="section-heading">
+
+          <div>
+            <h2>
+              Analyze Your Scrap
+            </h2>
 
             <p>
-                Upload a PCB/e-waste image or use your camera
+              Upload a photo or use your camera
+              to identify e-waste components.
             </p>
+          </div>
+
+          <span class="ai-badge">
+            AI
+          </span>
+
+        </div>
 
 
-            <!-- ========================= -->
-            <!-- IMAGE UPLOAD -->
-            <!-- ========================= -->
+        <!-- Upload / Camera -->
 
-            <div class="input-section">
+        <div class="input-area">
 
-                <h3>📁 Upload Image</h3>
+          <button
+            type="button"
+            class="input-option"
+            id="uploadButton"
+          >
 
-                <input
-                    type="file"
-                    id="imageInput"
-                    accept="image/*"
-                >
+            <span class="option-icon">
+              📁
+            </span>
 
-            </div>
+            <span>
+              Upload Image
+            </span>
 
-
-            <!-- ========================= -->
-            <!-- CAMERA -->
-            <!-- ========================= -->
-
-            <div class="camera-section">
-
-                <h3>📷 Camera</h3>
-
-                <video
-                    id="camera"
-                    autoplay
-                    playsinline>
-                </video>
-
-                <canvas
-                    id="canvas"
-                    style="display:none;">
-                </canvas>
-
-                <div class="camera-buttons">
-
-                    <button
-                        type="button"
-                        id="startCameraButton"
-                        onclick="startCamera()">
-
-                        📷 Start Camera
-
-                    </button>
+          </button>
 
 
-                    <button
-                        type="button"
-                        id="captureButton"
-                        onclick="captureImage()"
-                        disabled>
+          <button
+            type="button"
+            class="input-option"
+            id="cameraButton"
+          >
 
-                        📸 Capture Scrap
+            <span class="option-icon">
+              📷
+            </span>
 
-                    </button>
+            <span>
+              Use Camera
+            </span>
 
+          </button>
 
-                    <button
-                        type="button"
-                        id="stopCameraButton"
-                        onclick="stopCamera()"
-                        disabled>
-
-                        ⏹ Stop Camera
-
-                    </button>
-
-                </div>
-
-            </div>
+        </div>
 
 
-            <!-- ========================= -->
-            <!-- PREVIEW -->
-            <!-- ========================= -->
-
-            <div class="preview-section">
-
-                <h3>🖼️ Selected Image</h3>
-
-                <img
-                    id="preview"
-                    alt="Selected PCB preview"
-                    style="display:none;">
-
-            </div>
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+          hidden
+        />
 
 
-            <!-- ========================= -->
-            <!-- ANALYZE -->
-            <!-- ========================= -->
+        <!-- Camera -->
+
+        <div
+          class="camera-wrapper"
+          id="cameraWrapper"
+          hidden
+        >
+
+          <video
+            id="camera"
+            autoplay
+            playsinline
+          ></video>
+
+          <div class="camera-overlay"></div>
+
+          <div class="camera-controls">
 
             <button
-                id="analyzeButton"
-                onclick="analyzeImage()">
-
-                🔍 Analyze Image
-
+              type="button"
+              id="captureButton"
+              class="primary-button"
+            >
+              <span>📸</span>
+              Capture
             </button>
 
+            <button
+              type="button"
+              id="stopCameraButton"
+              class="secondary-button"
+            >
+              Stop
+            </button>
 
-            <div id="status"></div>
+          </div>
 
-        </section>
-
-
-        <!-- ========================= -->
-        <!-- RESULTS -->
-        <!-- ========================= -->
-
-        <section
-            id="results"
-            class="results hidden">
-
-            <h2>📊 Analysis Summary</h2>
+        </div>
 
 
-            <div class="summary-grid">
-
-                <div class="summary-box">
-
-                    <span id="totalComponents">
-                        0
-                    </span>
-
-                    <p>
-                        Total Components
-                    </p>
-
-                </div>
+        <canvas
+          id="canvas"
+          hidden
+        ></canvas>
 
 
-                <div class="summary-box">
+        <!-- Preview -->
 
-                    <span id="reusable">
-                        0
-                    </span>
+        <div
+          class="preview-wrapper"
+          id="previewWrapper"
+          hidden
+        >
 
-                    <p>
-                        Reusable
-                    </p>
+          <div class="preview-header">
 
-                </div>
+            <span>
+              Selected Image
+            </span>
+
+            <button
+              type="button"
+              id="removeImageButton"
+              class="icon-button"
+            >
+              ×
+            </button>
+
+          </div>
+
+          <img
+            id="preview"
+            alt="Selected e-waste"
+          />
+
+        </div>
 
 
-                <div class="summary-box">
+        <!-- Analyze -->
 
-                    <span id="recyclable">
-                        0
-                    </span>
+        <button
+          type="button"
+          id="analyzeButton"
+          class="analyze-button"
+          disabled
+        >
 
-                    <p>
-                        Recyclable
-                    </p>
+          <span>
+            🔍
+          </span>
 
-                </div>
+          Analyze Image
+
+        </button>
 
 
-                <div class="summary-box">
+        <!-- Status -->
 
-                    <span id="metalBearing">
-                        0
-                    </span>
+        <div
+          id="status"
+          class="status"
+          hidden
+        ></div>
 
-                    <p>
-                        Metal-bearing
-                    </p>
+      </section>
 
-                </div>
+
+      <!-- Results -->
+
+      <section
+        id="results"
+        class="results-card"
+        hidden
+      >
+
+        <div class="section-heading">
+
+          <div>
+            <h2>
+              Analysis Summary
+            </h2>
+
+            <p>
+              AI detected components in your scrap.
+            </p>
+          </div>
+
+          <span class="success-dot">
+            ✓
+          </span>
+
+        </div>
+
+
+        <!-- Summary -->
+
+        <div class="summary-grid">
+
+          <div class="summary-box">
+
+            <span
+              id="totalComponents"
+              class="summary-value"
+            >
+              0
+            </span>
+
+            <span class="summary-label">
+              Components
+            </span>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <span
+              id="reusable"
+              class="summary-value"
+            >
+              0
+            </span>
+
+            <span class="summary-label">
+              Reusable
+            </span>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <span
+              id="recyclable"
+              class="summary-value"
+            >
+              0
+            </span>
+
+            <span class="summary-label">
+              Recyclable
+            </span>
+
+          </div>
+
+
+          <div class="summary-box">
+
+            <span
+              id="metalBearing"
+              class="summary-value"
+            >
+              0
+            </span>
+
+            <span class="summary-label">
+              Metal-bearing
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Components -->
+
+        <div class="result-section">
+
+          <div class="result-title">
+            Detected Components
+          </div>
+
+          <div
+            id="componentList"
+            class="component-list"
+          ></div>
+
+        </div>
+
+
+        <!-- Scrap calculator -->
+
+        <div class="calculator-card">
+
+          <div class="calculator-header">
+
+            <div class="calculator-icon">
+              ⚖️
+            </div>
+
+            <div>
+
+              <h3>
+                Scrap Calculator
+              </h3>
+
+              <p>
+                Estimate value from weight and rate.
+              </p>
 
             </div>
 
-
-            <h3>
-                Detected Components
-            </h3>
+          </div>
 
 
-            <div id="componentList">
+          <label>
+            Weight
+          </label>
+
+          <div class="input-with-unit">
+
+            <input
+              type="number"
+              id="pcbWeight"
+              min="1"
+              placeholder="Enter weight"
+            />
+
+            <span>
+              grams
+            </span>
+
+          </div>
+
+
+          <label>
+            Scrap Rate
+          </label>
+
+          <div class="input-with-unit">
+
+            <input
+              type="number"
+              id="pcbRate"
+              value="450"
+              min="1"
+            />
+
+            <span>
+              ₹ / kg
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            id="calculateButton"
+            class="secondary-action"
+          >
+            Calculate Value
+          </button>
+
+
+          <div
+            id="scrapValue"
+            class="calculator-result"
+          >
+            ₹0.00
+          </div>
+
+        </div>
+
+
+        <!-- Estimated value -->
+
+        <div class="estimated-card">
+
+          <div class="estimated-icon">
+            ₹
+          </div>
+
+          <div>
+
+            <p class="estimated-label">
+              Estimated Scrap Value
+            </p>
+
+            <div
+              id="estimatedPrice"
+              class="estimated-price"
+            >
+              ₹0 - ₹0
             </div>
 
+          </div>
 
-<div class="weight-card">
-
-    <h3>⚖️ PCB Scrap Calculator</h3>
-
-    <label for="pcbWeight">
-        PCB / E-Waste Weight (grams)
-    </label>
-
-    <input
-        type="number"
-        id="pcbWeight"
-        placeholder="Enter weight in grams"
-        min="1"
-    >
-
-    <label for="pcbRate">
-        Scrap Rate (₹ / kg)
-    </label>
-
-    <input
-        type="number"
-        id="pcbRate"
-        value="450"
-        min="1"
-    >
-
-    <button
-        type="button"
-        onclick="calculateScrapValue()">
-
-        Calculate Scrap Value
-
-    </button>
-
-    <div id="scrapValue">
-        ₹0.00
-    </div>
-
-</div>
-
-            <div class="price-card">
-
-                <h3>
-                    💰 Estimated Value
-                </h3>
-
-                <div id="estimatedPrice">
-                    ₹0 - ₹0
-                </div>
-
-                <p>
-                    Prototype estimate only.
-                    Actual value depends on
-                    condition, weight, type,
-                    material and market rate.
-                </p>
-
-            </div>
+        </div>
 
 
-            <!-- Annotated image -->
+        <!-- Annotated image -->
 
-            <div class="annotated-section">
+        <div
+          class="annotated-section"
+          id="annotatedSection"
+          hidden
+        >
 
-                <h3>
-                    🖼️ AI Detection Result
-                </h3>
+          <div class="result-title">
+            AI Detection Result
+          </div>
 
-                <img
-                    id="annotatedImage"
-                    alt="AI annotated result">
+          <img
+            id="annotatedImage"
+            alt="AI detection result"
+          />
 
-            </div>
+        </div>
 
-        </section>
+      </section>
 
     </main>
 
+  </div>
 
-    <footer>
-
-        <p>
-            E-Waste AI
-             
-        </p>
-
-    </footer>
-
-</div>
-
-
-<script src="script.js"></script>
+  <script src="./eWasteAI.js"></script>
 
 </body>
 
