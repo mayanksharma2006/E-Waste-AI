@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,26 +10,26 @@
 ========================================================= */
 
 .ewaste-ai {
-  --background: #06120e;
-  --foreground: #f4f8f5;
+  --background: #07100D;
+  --foreground: #F4F8F5;
 
-  --surface: #091b14;
-  --surface-soft: #0d241b;
+  --surface: #0C1B14;
+  --surface-soft: #0F2018;
 
-  --border: #17382b;
-  --border-light: #1c4635;
+  --border: #15261E;
+  --border-light: #1C3A2D;
 
-  --muted: #8b9c94;
-  --muted-foreground: #61736a;
+  --muted: #8B9C94;
+  --muted-foreground: #61736A;
 
-  --primary: #55d6a0;
-  --primary-dark: #3fc18b;
-  --primary-foreground: #06120e;
+  --primary: #5FD19D;
+  --primary-dark: #3FA878;
+  --primary-foreground: #07100D;
 
   --accent: rgba(85, 214, 160, 0.12);
 
-  --success: #55d6a0;
-  --danger: #ef7777;
+  --success: #5FD19D;
+  --danger: #EF7777;
 
   width: 100%;
   min-height: 100vh;
@@ -88,8 +89,8 @@
 }
 
 .ai-logo {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
 
   object-fit: contain;
 }
@@ -101,13 +102,13 @@
 
   line-height: 1.2;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 .ai-header p {
   margin-top: 4px;
 
-  color: #82948b;
+  color: #82948B;
 
   font-size: 12px;
 }
@@ -160,7 +161,7 @@
 
   font-weight: 700;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 .section-heading p {
@@ -225,9 +226,9 @@
 
   border-radius: 12px;
 
-  background: #0b2118;
+  background: #0C1B14;
 
-  color: #dce8e2;
+  color: #DCE8E2;
 
   font-family: inherit;
 
@@ -244,7 +245,7 @@
 }
 
 .input-option:hover {
-  background: #102a20;
+  background: #12271E;
 
   border-color: rgba(85, 214, 160, 0.5);
 }
@@ -447,7 +448,7 @@
 
   background: var(--primary);
 
-  color: #06120e;
+  color: #07100D;
 
   font-family: inherit;
 
@@ -464,7 +465,7 @@
 }
 
 .analyze-button:hover:not(:disabled) {
-  background: #69dfad;
+  background: #69DDA8;
 
   box-shadow:
     0 6px 20px rgba(85, 214, 160, 0.15);
@@ -494,7 +495,7 @@
 
   border-radius: 10px;
 
-  background: #0b2118;
+  background: #0C1B14;
 
   color: var(--muted);
 
@@ -558,7 +559,7 @@
 
   border-radius: 12px;
 
-  background: #0b2118;
+  background: #0C1B14;
 
   text-align: center;
 }
@@ -572,7 +573,7 @@
 
   line-height: 1;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 .summary-label {
@@ -603,7 +604,7 @@
 
   font-weight: 700;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 
@@ -626,7 +627,7 @@
 
   border-radius: 12px;
 
-  background: #0b2118;
+  background: #0C1B14;
 
   transition:
     border-color 0.18s ease,
@@ -636,7 +637,7 @@
 .component-card:hover {
   border-color: rgba(85, 214, 160, 0.3);
 
-  background: #0d261c;
+  background: #0F241B;
 }
 
 .component-name {
@@ -677,7 +678,7 @@
 .component-row span:last-child {
   text-align: right;
 
-  color: #dce8e2;
+  color: #DCE8E2;
 
   font-weight: 600;
 }
@@ -696,7 +697,7 @@
 
   border-radius: 14px;
 
-  background: #0b2118;
+  background: #0C1B14;
 }
 
 .calculator-header {
@@ -733,7 +734,7 @@
 .calculator-header h3 {
   font-size: 14px;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 .calculator-header p {
@@ -770,7 +771,7 @@
 
   border-radius: 10px;
 
-  background: #071810;
+  background: #081610;
 
   overflow: hidden;
 
@@ -794,7 +795,7 @@
 
   background: transparent;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 
   font-family: inherit;
 
@@ -802,7 +803,7 @@
 }
 
 .input-with-unit input::placeholder {
-  color: #52665c;
+  color: #52665C;
 }
 
 .input-with-unit span {
@@ -825,11 +826,11 @@
 
   margin-top: 14px;
 
-  background: #0e281e;
+  background: #10271D;
 
   border: 1px solid var(--border);
 
-  color: #dce8e2;
+  color: #DCE8E2;
 
   transition:
     border-color 0.18s ease,
@@ -912,7 +913,7 @@
 
   background: var(--primary);
 
-  color: #06120e;
+  color: #07100D;
 
   font-size: 17px;
 
@@ -932,7 +933,7 @@
 
   font-weight: 800;
 
-  color: #f4f8f5;
+  color: #F4F8F5;
 }
 
 
@@ -981,17 +982,17 @@
 }
 
 .ewaste-ai ::-webkit-scrollbar-track {
-  background: #06120e;
+  background: #07100D;
 }
 
 .ewaste-ai ::-webkit-scrollbar-thumb {
-  background: #17382b;
+  background: #15261E;
 
   border-radius: 10px;
 }
 
 .ewaste-ai ::-webkit-scrollbar-thumb:hover {
-  background: #245440;
+  background: #245A43;
 }
 
 
