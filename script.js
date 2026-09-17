@@ -409,7 +409,7 @@ function displayResults(data) {
     if (data.annotated_image) {
 
         annotatedImage.src =
-            "http://127.0.0.1:8000" +
+            "https://e-waste-ai.onrender.com" +
             data.annotated_image;
 
         annotatedImage.style.display =
