@@ -21,7 +21,6 @@ test_images/
 annotated/
 
 # YOLO model weights
-*.pt
 
 # Temporary uploads
 backend/uploads/
