@@ -1,0 +1,14 @@
+Term 1
+
+cd C:\Users\HP\Downloads\E_WASTE_AI
+conda activate ewaste_ai
+uvicorn backend.main:app --reload
+
+Term 2
+
+cd C:\Users\HP\Downloads\E_WASTE_AI\frontend
+python -m http.server 5500
+
+Site
+
+http://127.0.0.1:5500

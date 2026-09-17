@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+ewaste_ai/
+
+# Large datasets
+dataset/
+
+# Training outputs
+runs/
+results/
+test_images/
+
+# Generated annotated images
+annotated/
+
+# YOLO model weights
+*.pt
+
+# Temporary uploads
+backend/uploads/
+
+# IDE / OS
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db

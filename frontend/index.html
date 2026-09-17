@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Waste AI Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>♻️ E-Waste AI</h1>
+
+        <p>
+            Smart PCB & Electronic Waste Analyzer
+        </p>
+    </header>
+
+
+    <main>
+
+        <section class="upload-card">
+
+            <h2>Analyze Your Scrap</h2>
+
+            <p>
+                Upload a PCB/e-waste image or use your camera
+            </p>
+
+
+            <!-- ========================= -->
+            <!-- IMAGE UPLOAD -->
+            <!-- ========================= -->
+
+            <div class="input-section">
+
+                <h3>📁 Upload Image</h3>
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                >
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- CAMERA -->
+            <!-- ========================= -->
+
+            <div class="camera-section">
+
+                <h3>📷 Camera</h3>
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <canvas
+                    id="canvas"
+                    style="display:none;">
+                </canvas>
+
+                <div class="camera-buttons">
+
+                    <button
+                        type="button"
+                        id="startCameraButton"
+                        onclick="startCamera()">
+
+                        📷 Start Camera
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="captureButton"
+                        onclick="captureImage()"
+                        disabled>
+
+                        📸 Capture Scrap
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="stopCameraButton"
+                        onclick="stopCamera()"
+                        disabled>
+
+                        ⏹ Stop Camera
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- PREVIEW -->
+            <!-- ========================= -->
+
+            <div class="preview-section">
+
+                <h3>🖼️ Selected Image</h3>
+
+                <img
+                    id="preview"
+                    alt="Selected PCB preview"
+                    style="display:none;">
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- ANALYZE -->
+            <!-- ========================= -->
+
+            <button
+                id="analyzeButton"
+                onclick="analyzeImage()">
+
+                🔍 Analyze Image
+
+            </button>
+
+
+            <div id="status"></div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- RESULTS -->
+        <!-- ========================= -->
+
+        <section
+            id="results"
+            class="results hidden">
+
+            <h2>📊 Analysis Summary</h2>
+
+
+            <div class="summary-grid">
+
+                <div class="summary-box">
+
+                    <span id="totalComponents">
+                        0
+                    </span>
+
+                    <p>
+                        Total Components
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <span id="reusable">
+                        0
+                    </span>
+
+                    <p>
+                        Reusable
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <span id="recyclable">
+                        0
+                    </span>
+
+                    <p>
+                        Recyclable
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <span id="metalBearing">
+                        0
+                    </span>
+
+                    <p>
+                        Metal-bearing
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h3>
+                Detected Components
+            </h3>
+
+
+            <div id="componentList">
+            </div>
+
+
+<div class="weight-card">
+
+    <h3>⚖️ PCB Scrap Calculator</h3>
+
+    <label for="pcbWeight">
+        PCB / E-Waste Weight (grams)
+    </label>
+
+    <input
+        type="number"
+        id="pcbWeight"
+        placeholder="Enter weight in grams"
+        min="1"
+    >
+
+    <label for="pcbRate">
+        Scrap Rate (₹ / kg)
+    </label>
+
+    <input
+        type="number"
+        id="pcbRate"
+        value="450"
+        min="1"
+    >
+
+    <button
+        type="button"
+        onclick="calculateScrapValue()">
+
+        Calculate Scrap Value
+
+    </button>
+
+    <div id="scrapValue">
+        ₹0.00
+    </div>
+
+</div>
+
+            <div class="price-card">
+
+                <h3>
+                    💰 Estimated Value
+                </h3>
+
+                <div id="estimatedPrice">
+                    ₹0 - ₹0
+                </div>
+
+                <p>
+                    Prototype estimate only.
+                    Actual value depends on
+                    condition, weight, type,
+                    material and market rate.
+                </p>
+
+            </div>
+
+
+            <!-- Annotated image -->
+
+            <div class="annotated-section">
+
+                <h3>
+                    🖼️ AI Detection Result
+                </h3>
+
+                <img
+                    id="annotatedImage"
+                    alt="AI annotated result">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            E-Waste AI
+             ❤️Made with turu love!
+        </p>
+
+    </footer>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
