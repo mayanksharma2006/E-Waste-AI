@@ -10,10 +10,10 @@
 ========================================================= */
 
 .ewaste-ai {
-  --background: #07100D;
+  --background: #063022;
   --foreground: #F4F8F5;
 
-  --surface: #0C1B14;
+  --surface: #023a20;
   --surface-soft: #0F2018;
 
   --border: #15261E;
@@ -24,14 +24,14 @@
 
   --primary: #5FD19D;
   --primary-dark: #3FA878;
-  --primary-foreground: #07100D;
+  --primary-foreground: #052a1e;
 
   --accent: rgba(85, 214, 160, 0.12);
 
   --success: #5FD19D;
   --danger: #EF7777;
 
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
 
   /* max-width: 1200px; */
