@@ -5,18 +5,33 @@ from ultralytics import YOLO
 
 import sys
 import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from component_database import COMPONENT_DATABASE
-from price_database import PRICE_DATABASE
-from grouping import get_groups
-
-import os
 import shutil
 import uuid
 
 from PIL import Image
+
+
+# ============================================================
+# PROJECT PATH
+# ============================================================
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
+
+# Add project root to Python path
+sys.path.append(BASE_DIR)
+
+
+# ============================================================
+# PROJECT DATABASES
+# ============================================================
+
+from component_database import COMPONENT_DATABASE
+from price_database import PRICE_DATABASE
+from grouping import get_groups
 
 
 # ============================================================
@@ -30,31 +45,28 @@ app = FastAPI(
 
 
 # ============================================================
-# FOLDERS
+# RESULTS FOLDER
 # ============================================================
 
-UPLOAD_FOLDER = "uploads"
-ANNOTATED_FOLDER = "annotated"
-
-os.makedirs(
-    UPLOAD_FOLDER,
-    exist_ok=True
+RESULTS_FOLDER = os.path.join(
+    BASE_DIR,
+    "results"
 )
 
 os.makedirs(
-    ANNOTATED_FOLDER,
+    RESULTS_FOLDER,
     exist_ok=True
 )
 
 
 # ============================================================
-# SERVE ANNOTATED IMAGES
+# SERVE RESULT IMAGES
 # ============================================================
 
 app.mount(
-    "/annotated",
-    StaticFiles(directory=ANNOTATED_FOLDER),
-    name="annotated"
+    "/results",
+    StaticFiles(directory=RESULTS_FOLDER),
+    name="results"
 )
 
 
@@ -75,7 +87,15 @@ app.add_middleware(
 # LOAD YOLO MODEL
 # ============================================================
 
-MODEL_PATH = "../runs/detect/results/pcb_first_model/weights/best.pt"
+MODEL_PATH = os.path.join(
+    BASE_DIR,
+    "runs",
+    "detect",
+    "results",
+    "pcb_first_model",
+    "weights",
+    "best.pt"
+)
 
 print("Loading YOLO model...")
 
@@ -114,13 +134,20 @@ async def analyze_image(
         file.filename
     )[1]
 
-    filename = (
-        str(uuid.uuid4()) + extension
+    if not extension:
+        extension = ".jpg"
+
+
+    original_filename = (
+        "original_"
+        + str(uuid.uuid4())
+        + extension
     )
 
+
     image_path = os.path.join(
-        UPLOAD_FOLDER,
-        filename
+        RESULTS_FOLDER,
+        original_filename
     )
 
 
@@ -139,6 +166,12 @@ async def analyze_image(
         )
 
 
+    print(
+        "Uploaded image saved:",
+        image_path
+    )
+
+
     # --------------------------------------------------------
     # YOLO DETECTION
     # --------------------------------------------------------
@@ -147,10 +180,12 @@ async def analyze_image(
 
     results = model.predict(
         source=image_path,
-        conf=0.25,
-        imgsz=640,
-        max_det=500,
-        save=False
+        conf=0.35,
+        imgsz=256,
+        max_det=50,
+        save=False,
+        verbose=False,
+        device="cpu"
     )
 
     result = results[0]
@@ -161,19 +196,30 @@ async def analyze_image(
     # --------------------------------------------------------
 
     annotated_filename = (
-        str(uuid.uuid4()) + ".jpg"
+        "annotated_"
+        + str(uuid.uuid4())
+        + ".jpg"
     )
 
+
     annotated_path = os.path.join(
-        ANNOTATED_FOLDER,
+        RESULTS_FOLDER,
         annotated_filename
     )
 
+
     annotated_image = result.plot()
+
 
     Image.fromarray(
         annotated_image
     ).save(
+        annotated_path
+    )
+
+
+    print(
+        "Annotated image saved:",
         annotated_path
     )
 
@@ -195,11 +241,13 @@ async def analyze_image(
             class_id
         ]
 
+
         if component_name not in component_counts:
 
             component_counts[
                 component_name
             ] = 0
+
 
         component_counts[
             component_name
@@ -260,6 +308,7 @@ async def analyze_image(
             component
         )
 
+
         for group in groups:
 
             if group in group_counts:
@@ -289,6 +338,7 @@ async def analyze_image(
                 count *
                 price["max_price"]
             )
+
 
             total_min_value += (
                 min_value
@@ -352,16 +402,20 @@ async def analyze_image(
         "success":
             True,
 
+
         "total_components":
             sum(
                 component_counts.values()
             ),
 
+
         "components":
             components,
 
+
         "groups":
             group_counts,
+
 
         "total_min_value":
             round(
@@ -369,15 +423,25 @@ async def analyze_image(
                 2
             ),
 
+
         "total_max_value":
             round(
                 total_max_value,
                 2
             ),
 
+
+        # Original uploaded image
+        "uploaded_image":
+            "/results/"
+            + original_filename,
+
+
+        # YOLO annotated image
         "annotated_image":
-            "/annotated/"
+            "/results/"
             + annotated_filename,
+
 
         "estimated_value": {
 
@@ -398,23 +462,20 @@ async def analyze_image(
     }
 
 
-    # --------------------------------------------------------
-    # Remove temporary uploaded image
-    # --------------------------------------------------------
-
-    try:
-
-        os.remove(
-            image_path
-        )
-
-    except:
-
-        pass
+    # ========================================================
+    # DO NOT DELETE THE FILES
+    # ========================================================
+    #
+    # Both images remain inside:
+    #
+    # E_WASTE_AI/results/
+    #
+    # ========================================================
 
 
     print(
         "Analysis completed!"
     )
+
 
     return response
